@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <title>QR Code Generator</title>
+
+  <link rel="stylesheet" href="/static/css/bootstrap.css">
+  <link rel="stylesheet" href="/static/font-awesome/css/font-awesome.min.css">
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"  crossorigin="anonymous"></script>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</head>
+
+
+<body>
+  <div class="container">
+    <div class="jumbotron">
+      <h1>QR Code Generator</h1>
+      <p class="lead">Info</p>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-md-7">
+          <h3>Select type of QR code</h3>
+
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a class="nav-link active" data-toggle="tab" href="#plain-text">Text</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#url">URL</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#geo">Geolocation</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#wifi">WiFi</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#calendar">Calendar</a>
+            </li>
+
+          </ul>
+
+          <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade show active" id="plain-text">
+              <br>
+              <form action="{{ url_for('index') }}" method="POST" >
+                <fieldset>
+                  <div class="form-group">
+                    <label for="plain-text">Enter text</label>
+                    <textarea class="form-control" id="plain-text" name="text" rows="3" placeholder="Text goes here..."></textarea>
+                    <input type="text" hidden="" value="text" name="type">
+                  </div>
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </fieldset>
+              </form>
+            </div>
+
+            <div class="tab-pane fade" id="url">
+              <br>
+              <form action="{{ url_for('index') }}" method="POST">
+                <fieldset>
+                  <div class="form-group">
+                    <div class="form-group">
+                      <label for="url">Enter URL</label>
+                      <input type="text" class="form-control" name="url" id="url" placeholder="URL goes here...">
+                      <input type="text" hidden="" value="url" name="type">
+                    </div>
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </fieldset>
+              </form>
+            </div>
+
+            <div class="tab-pane fade" id="geo">
+              <br>
+              <form action="{{ url_for('index') }}" method="POST">
+                <fieldset>
+                  <input type="text" hidden="" value="geo" name="type">
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="lat">Latitude</label>
+                        <input type="text" class="form-control" id="lat" name="latitude" placeholder="45.678">
+                      </div>
+                    </div>
+
+                    <div class="col">
+                      <label for="lon">Longitude</label>
+                      <input type="text" class="form-control" id="lon" name="longitude" placeholder="12.34">
+                    </div>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </fieldset>
+              </form>
+            </div>
+
+            <div class="tab-pane fade" id="wifi">
+              <br>
+              <form action="{{ url_for('index') }}" method="POST">
+                <fieldset>
+                  <input type="text" hidden="" value="wifi" name="type">
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="ssid">SSID/Network name</label>
+                        <input type="text" class="form-control" id="ssid" name="ssid" placeholder="My wifi">
+                      </div>
+                    </div>
+
+                    <div class="col">
+                      <label for="encryption">Encryption type</label>
+                      <select class="form-control" id="encryption" name="encryption">
+                        <option>WPA</option>
+                        <option>WEP</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input class="form-check-input" type="checkbox" name="is_hidden">
+                            Network is hidden
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <br>
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </fieldset>
+              </form>
+            </div>
+
+            <div class="tab-pane fade" id="calendar">
+              <p>TBD</p>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="col-sm">
+          <h3>Your QR code:</h3>
+
+          <div class="card mb-3">
+<!--             <img style="height: 300px; width: 100%; display: block;" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22318%22%20height%3D%22180%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20318%20180%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_158bd1d28ef%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A16pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_158bd1d28ef%22%3E%3Crect%20width%3D%22318%22%20height%3D%22180%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22129.359375%22%20y%3D%2297.35%22%3EImage%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" alt="Card image"> -->
+
+            <img style="height: auto; width: 100%; display: block;" src="{{ url_for('static', filename='img/q.png') }}" alt="">
+
+          </div>
+
+          <button type="button" class="btn btn-primary btn-lg btn-block">Download</button>
+
+        </div>
+
+      </div>
+    </div>
+
+</body>
+</html>

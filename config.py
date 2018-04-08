@@ -8,6 +8,8 @@ class Config(object):
                                 '<TT\xc3\xc2:<N\x9aLR\xb1\xd4d5h\x93d\xcc\x9cN\x06%\xba'
                                 )
 
+    UPLOAD_FOLDER = os.path.join(os.getcwd(), 'app', 'static', 'img')
+
     # >>> import os
     # >>> os.urandom(24)
     # '\xfd{H\xe5<\x95\xf9\xe3\x96.5\xd1\x01O<!\xd5\xa2\xa0\x9fR"\xa1\xa8'
